@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" x="0px" y="0px" width="512px" height="512px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" id="svg2" xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com">
+  <path id="check-mark-4-icon" d="M 462 256 C 462 369.771 369.771 462 256 462 C 142.229 462 50 369.771 50 256 C 50 142.229 142.229 50 256 50 C 369.771 50 462 142.229 462 256 Z M 422 256 C 422 164.245 347.742 90 256 90 C 164.245 90 90 164.259 90 256 C 90 347.755 164.258 422 256 422 C 347.755 422 422 347.741 422 256 Z" style="fill-opacity: 1; fill: rgb(59, 151, 197);"/>
+  <g transform="matrix(1, 0, 0, 1, 0.700848, 0)">
+    <rect x="153.83" y="227.301" width="148.472" height="57.399" style="fill: rgb(59, 151, 197);"/>
+    <path d="M 335.977 205.692 L 401.085 318.464 L 270.868 318.464 L 335.977 205.692 Z" transform="matrix(0, 1, -1, 0, 572.460345, -79.976501)" style="fill: rgb(59, 151, 197);" bx:shape="triangle 270.868 205.692 130.217 112.772 0.5 0 1@d4c6b76b"/>
+  </g>
+</svg>

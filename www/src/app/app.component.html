@@ -1,0 +1,51 @@
+<div class="goto-next-event">
+  <div *ngIf="nextEventWithConnection;else spinner" [style.background-color]="nextEventWithConnection.coloredEvent.color">
+    <h1><span>{{nextEventWithConnection.coloredEvent.event.summary}}</span></h1>
+    <p class="event-time">
+      <span>{{nextEventWithConnection.coloredEvent.event.startTimestamp | date:'EEE, dd.MM.yyyy, HH:mm'}}</span>
+    </p>
+    
+    <h2 class="start-time">
+      <span>Start at {{nextEventWithConnection.connection.from.departure | date:'HH:mm'}}</span>
+    </h2>
+    
+    <div *ngFor="let section of nextEventWithConnection.connection.sections; let first = first; let last = last; let index = index;">
+      <p class="section" *ngIf="section.walk == null" (click)="removeSection(section)">
+        <strong>{{section.departure.departureTimestamp * 1000 | date:'HH:mm'}}</strong>
+        <ng-container *ngIf="section.departure.platform != null">(Gleis {{section.departure.platform}})</ng-container><br>
+        <span class="location">{{section.departure.location.name}}</span><br>
+        <span class="line">{{section.journey.category}} {{section.journey.number | lineNumber}}</span> → {{section.journey.to}}<br>
+        <span class="location">{{section.arrival.location.name}}</span><br>
+        <strong>{{section.arrival.arrivalTimestamp * 1000 | date:'HH:mm'}}</strong>
+        <ng-container *ngIf="section.arrival.platform != null">(Gleis {{section.arrival.platform}})</ng-container>
+      </p>
+      <div class="map">
+        <agm-map *ngIf="sourceGeoLocation && section.walk != null && first">
+          <directions
+            [origin]="sourceGeoLocation"
+            [destination]="{lat: section.arrival.location.coordinate.x, lng: section.arrival.location.coordinate.y}"
+            [travelMode]="'WALKING'">
+          </directions>
+        </agm-map>
+        <agm-map *ngIf="targetGeoLocation && section.walk != null && last">
+          <directions
+            [origin]="{lat: nextEventWithConnection.connection.sections[index - 1].arrival.location.coordinate.x, lng: nextEventWithConnection.connection.sections[index - 1].arrival.location.coordinate.y}"
+            [destination]="targetGeoLocation"
+            [travelMode]="'WALKING'">
+          </directions>
+        </agm-map>
+      </div>
+    </div>
+
+    <p class="target-location-line" *ngFor="let locationLine of nextEventWithConnection.coloredEvent.event.locationLines"><span>{{locationLine | addressLine}}</span></p>
+  </div>
+  <ng-template #spinner>
+    <div class="spinner">
+      <div class="rect1"></div>&nbsp;
+      <div class="rect2"></div>&nbsp;
+      <div class="rect3"></div>&nbsp;
+      <div class="rect4"></div>&nbsp;
+      <div class="rect5"></div>
+    </div>
+  </ng-template>
+</div>

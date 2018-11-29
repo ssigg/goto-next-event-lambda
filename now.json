@@ -1,0 +1,13 @@
+{
+    "version": 2,
+    "alias": "goto-next-event-lambda",
+    "name": "goto-next-event-lambda",
+    "builds": [
+        { "src": "api/dist/*.js", "use": "@now/node" },
+        { "src": "www/dist/**", "use": "@now/static" }
+    ],
+    "routes": [
+        { "src": "/api/(.*)", "dest": "/api/dist/$1" },
+        { "src": "/(.*)", "dest": "/www/dist/$1" }
+    ]
+}
