@@ -58,8 +58,7 @@ export class AppComponent implements OnInit {
 
   private async getCalendarEvent(params: Params): Promise<ColoredIcalEvent[]> {
     const calendarIdsString = params['calendarIds'];
-    const calendarIds = calendarIdsString.split('|');
-    return this.httpClient.get<ColoredIcalEvent[]>('/api/icloud-calendar.js?calendarId=' + calendarIds[0]).toPromise(); // TODO: Load multiple calendars
+    return this.httpClient.get<ColoredIcalEvent[]>('/api/icloud-calendar.js?calendarIds=' + calendarIdsString).toPromise();
   }
 
   private async getTargetLocation(coloredEvent: ColoredIcalEvent): Promise<GeoLocation> {

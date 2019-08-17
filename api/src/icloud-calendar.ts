@@ -4,13 +4,13 @@ import { IcalParserService } from "./ical/ical-parser.service";
 import { IcalCalendar, IcalEvent } from "./ical/ical.entities";
 
 module.exports = async (req: Http2ServerRequest, res: Http2ServerResponse) => {
-    const calendarId = req.url.split('=')[1];
+    const calendarIds = req.url.split('=')[1].split('|');
     
     const icloudService = new IcloudService();
-    const icalString = await icloudService.getIcalString(calendarId);
-
+    const icalStrings = await Promise.all(calendarIds.map(async id => await icloudService.getIcalString(id)));
+    
     const icalParserService = new IcalParserService();
-    const icalCalendars = icalParserService.parse(icalString);
+    const icalCalendars = icalStrings.map(s => icalParserService.parse(s)).reduce((pv, cv) => pv.concat(cv), []);
 
     const coloredEvents = getColoredEvents(icalCalendars, 1);
 
